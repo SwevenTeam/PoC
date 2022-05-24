@@ -13,17 +13,14 @@ chatbot = ChatBot(
         {
             'import_path': 'chatterbot.logic.BestMatch',
             'default_response': 'I am sorry, but I do not understand. I am still learning.',
-            'maximum_similarity_threshold': 0.90
-        }
-    ],
-    database_uri='sqlite:///database.sqlite3'
-)
+            'maximum_similarity_threshold': 0.90}],
+    database_uri='sqlite:///database.sqlite3')
 
- # Training with Personal Ques & Ans 
+# Training with Personal Ques & Ans
 training_data_simple = open('training_data/simple.txt').read().splitlines()
 
 trainer = ListTrainer(chatbot)
 trainer.train(training_data_simple)
 
-# Training with English Corpus Data 
+# Training with English Corpus Data
 trainer_corpus = ChatterBotCorpusTrainer(chatbot)
