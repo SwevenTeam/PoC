@@ -1,5 +1,5 @@
 from requests import Response
-import re
+import json
 
 class PresenceRequest():
     def __init__(self):
@@ -21,12 +21,12 @@ class PresenceRequest():
     
     def parseResult(self, response: Response) -> str:
         if response.status_code == 200:
-            str = ""
+            out_str = ""
             for record in response.json():
-                str += "\tLocalità: " + record.get('location', "non segnalata") + '\n'
-                str += "\tUtente: " + record.get('user', "non registrato") + '\n'
-                str += '\n'
+                out_str += "\tLocalità: " + str(record.get('location', "non segnalata")) + '\n'
+                out_str += "\tUtente: " + str(record.get('user', "non trovato")) + '\n'
+                out_str += '\n'
 
-            return str
+            return out_str
         else: # Da gestire i casi di richiesta non valida
             return "Richiesta non andata a buon fine"
