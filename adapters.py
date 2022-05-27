@@ -23,22 +23,29 @@ class PresenceAdapter(LogicAdapter):
         else:
             return True
 
-    def process(self, input_statement, additional_response_selection_parameters):
+    def process(
+            self,
+            input_statement,
+            additional_response_selection_parameters):
         if self.adapter is None:
-            self.adapter="PresenceAdapter" # Imposto questo come adapter se posso processare la richiesta
-            self.request=PresenceRequest()
-        
+            # Imposto questo come adapter se posso processare la richiesta
+            self.adapter = "PresenceAdapter"
+            self.request = PresenceRequest()
+
         response = self.request.parseUserInput(input_statement.text)
 
         if self.request.isReady():
-            url = "https://apibot4me.imolinfo.it/v1/locations/" + self.request.azienda + "/presence"
+            url = "https://apibot4me.imolinfo.it/v1/locations/" + \
+                self.request.azienda + "/presence"
 
             responseUrl = requests.get(url, headers={"api_key": self.api_key})
-            response_statement = Statement(self.request.parseResult(responseUrl)) # Parse della risposta, da controllare lo status (?)
+            # Parse della risposta, da controllare lo status (?)
+            response_statement = Statement(
+                self.request.parseResult(responseUrl))
 
-            #if response.status_code == 200:
+            # if response.status_code == 200:
             #    confidence = 1
-            #else:
+            # else:
             #    confidence = 0
 
             # Riporto a "zero" i paramentri
@@ -46,6 +53,7 @@ class PresenceAdapter(LogicAdapter):
             self.request = None
 
         else:
-            response_statement = Statement(response) # Non faccio nulla / passo avanti la response
+            # Non faccio nulla / passo avanti la response
+            response_statement = Statement(response)
 
         return response_statement
