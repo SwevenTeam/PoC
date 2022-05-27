@@ -4,19 +4,19 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 
 # Creating ChatBot Instance
 chatbot = ChatBot(
-    'CoronaBot',
-    secret_key='12345678-1234-1234-1234-123456789012',
-    storage_adapter='chatterbot.storage.SQLStorageAdapter',
-    logic_adapters=[
-        {
-            'import_path': 'adapters.PresenceAdapter'
-        },
-        {
-            'import_path': 'chatterbot.logic.BestMatch',
-            'default_response': 'Scusa, ma non riesco a capire. Sto imparando.',
-            'maximum_similarity_threshold': 0.90
-        }
-    ],
+  'CoronaBot',
+  secret_key='12345678-1234-1234-1234-123456789012',
+  storage_adapter='chatterbot.storage.SQLStorageAdapter',
+  logic_adapters=[
+    {
+      'import_path': 'adapter_sede.adapter_sede'
+    },
+    {
+      'import_path': 'chatterbot.logic.BestMatch',
+      'default_response': 'Scusa, ma non riesco a capire. Sto imparando.',
+      'maximum_similarity_threshold': 0.90
+    }
+  ],
 )
 
  # Training with Personal Ques & Ans 
