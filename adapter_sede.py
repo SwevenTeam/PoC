@@ -4,7 +4,7 @@ from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
 from request_sede import request_sede
 import requests
-import globals
+from flask import session
 
 
 class adapter_sede(LogicAdapter):
@@ -22,10 +22,10 @@ class adapter_sede(LogicAdapter):
         locations = ['bologna', 'imola']
         words = ['sede', 'sedi']
 
-        if globals.status == "sede":
+        if session['status'] == "sede":
             if any(x in statement.text.split() for x in locations):
                 # Aggiorno lo status di conseguenza
-                globals.status = "location"
+                session['status'] = "location"
                 return True
             else:
                 return False
@@ -34,10 +34,10 @@ class adapter_sede(LogicAdapter):
         else:
             if any(x in statement.text.split() for x in words):
                 # Aggiorno lo status di conseguenza
-                globals.status = "sede"
+                session['status'] = "sede"
                 if any(x in statement.text.split() for x in locations):
                     # Aggiorno lo status di conseguenza
-                    globals.status = "sede_location"
+                    session['status'] = "sede_location"
                     return True
                 return True
             else:
@@ -56,7 +56,7 @@ class adapter_sede(LogicAdapter):
         # In questo caso, il bot dovrà rispondere di inserire una sede
         # In una versione più avanzata, si dovrà controllare che non ci sia già
         # scritto "Sede Imola"
-        if globals.status == "sede":
+        if session['status'] == "sede":
             response = "Inserisci la sede di cui vuoi conoscere le informazioni"
         else:
             response = self.request.parseUserInput(input_statement.text)

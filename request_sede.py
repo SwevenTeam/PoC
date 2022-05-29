@@ -1,6 +1,6 @@
 from requests import Response
 import json
-import globals
+from flask import session
 
 
 class request_sede():
@@ -9,14 +9,14 @@ class request_sede():
 
     def parseUserInput(self, input_statement: str) -> str:
         # Tolgo lo spit perché la mia stringa non è univoca
-        if globals.status == "location":
+        if session['status'] == "location":
             # Questo controllo per ora non serve, visto che inserisce in 2
             # "andate/messaggi" diverse/i
             self.azienda = input_statement
         else:
             # Il codice di Mattia controlla che dopo la parola sede venga
             # inserito il luogo
-            if globals.status == "sede_location":
+            if session['status'] == "sede_location":
                 splittedWords = input_statement.split(' ')
                 match = splittedWords.index('sede')
                 if match + 1 < len(splittedWords):
@@ -41,7 +41,7 @@ class request_sede():
                 out_str += '\n'
 
             # Se la richiesta funziona, setto status a ""
-            globals.status = ""
+            session['status'] = ""
             return out_str
         else:  # Da gestire i casi di richiesta non valida
             return "Richiesta non andata a buon fine"
