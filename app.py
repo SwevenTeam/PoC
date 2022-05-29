@@ -16,7 +16,8 @@ def home():
 
 @app.route("/get")
 def get_bot_response():
-    if not session['status']:
+    if 'status' not in session:
+    #if not session['status']:
         session['status'] = ""
     userText = request.args.get('msg')
     return str(chatbot.get_response(userText))
