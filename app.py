@@ -6,6 +6,7 @@ from chatbot import chatbot
 app = Flask(__name__)
 app.secret_key = 'secret'
 
+
 @app.route("/")
 def home():
     # Inizzializzo lo status che terrà conto dello stato di operazioni che
@@ -16,7 +17,7 @@ def home():
 @app.route("/get")
 def get_bot_response():
     if not session['status']:
-      session['status'] = ""
+        session['status'] = ""
     userText = request.args.get('msg')
     return str(chatbot.get_response(userText))
 
