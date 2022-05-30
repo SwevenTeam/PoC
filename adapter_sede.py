@@ -21,7 +21,7 @@ class adapter_sede(LogicAdapter):
         # Setto i parametri con cui cercare
         locations = ['bologna', 'imola']
         words = ['sede', 'sedi']
-        not_words = ['lista','elenco','liste']
+        not_words = ['lista', 'elenco', 'liste']
 
         if session['status'] == "sede":
             if any(x in statement.text.split() for x in locations):
@@ -33,7 +33,8 @@ class adapter_sede(LogicAdapter):
         # Se il valore di global non è sede, allora controlla se è stato
         # scritto sede
         else:
-            if any(x in statement.text.split() for x in words) and not any(x in statement.text.split() for x in not_words):
+            if any(x in statement.text.split() for x in words) and not any(
+                    x in statement.text.split() for x in not_words):
                 # Aggiorno lo status di conseguenza
                 session['status'] = "sede"
                 if any(x in statement.text.split() for x in locations):
