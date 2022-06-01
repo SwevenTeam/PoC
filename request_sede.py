@@ -43,7 +43,7 @@ class request_sede():
             # Se la richiesta funziona, setto status a ""
             session['status'] = ""
             if out_str == "":
-                out_str ="Richiesta andata a buon fine, ma nessun dato da visualizzare"
+                out_str = "Richiesta andata a buon fine, ma nessun dato da visualizzare"
             return out_str
         else:  # Da gestire i casi di richiesta non valida
             return "Richiesta non andata a buon fine"
