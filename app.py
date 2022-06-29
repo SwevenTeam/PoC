@@ -1,18 +1,25 @@
-from flask import Flask, render_template, request
+
+from webbrowser import get
+from flask import Flask, render_template, request, session
 from chatbot import chatbot
 
 app = Flask(__name__)
-app.static_folder = 'static'
+app.secret_key = 'secret'
 
 
 @app.route("/")
-def home():
+def index():
+    # Inizzializzo lo status che terrà conto dello stato di operazioni che
+    # richiedono input multipli
     return render_template("index.html")
 
 
 @app.route("/get")
 def get_bot_response():
-    userText = request.args.get('msg')
+    if 'status' not in session:
+        # if not session['status']:
+        session['status'] = ""
+    userText = request.args.get('msg').lower()
     return str(chatbot.get_response(userText))
 
 
