@@ -8,7 +8,7 @@ app.secret_key = 'secret'
 
 
 @app.route("/")
-def home():
+def index():
     # Inizzializzo lo status che terrà conto dello stato di operazioni che
     # richiedono input multipli
     return render_template("index.html")
