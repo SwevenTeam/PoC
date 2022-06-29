@@ -19,7 +19,7 @@ def get_bot_response():
     if 'status' not in session:
         # if not session['status']:
         session['status'] = ""
-    userText = request.args.get('msg')
+    userText = request.args.get('msg').lower()
     return str(chatbot.get_response(userText))
 
 
